@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
 
     try {
         const todos = await Todo.find();
-        res.json(todos);
+        return res.json(todos);
     } catch (err) {
         console.error(err)
         return res.status(500).json({ msg: "Error in reading file..." })
@@ -22,10 +22,10 @@ router.post('/', async (req, res) => {
     const todo = new Todo({_id,text,priority});
     try {
         const saved = await todo.save();
-        res.status(201).json({ msg: "Todo saved successfully.." })
+        return res.status(201).json({ msg: "Todo saved successfully.." })
 
     } catch (err) {
-        res.status(400).json({ msg: "Failed to save todo." })
+        return res.status(400).json({ msg: "Failed to save todo." })
     }
 
 });
@@ -39,7 +39,7 @@ router.delete('/:id', async (req, res) => {
         return res.json({ msg: "Todo successfully Deleted.. " });
 
     } catch (err) {
-        res.status(500).json({ msg: "Failed to delete Todo." })
+        return res.status(500).json({ msg: "Failed to delete Todo." })
     }
 
 })
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
         return res.json(updatedTodo);
 
     } catch (err) {
-        res.status(500).json({ msg: "Failed to edit Todo.." });
+        return res.status(500).json({ msg: "Failed to edit Todo.." });
     }
 
 });
